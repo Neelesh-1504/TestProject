@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Account Paginator</masterLabel>
+    <description>Displays Accounts with server-side pagination, search, and sorting (Apex-backed).</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Account</object>
+            </objects>
+        </targetConfig>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="pageSize" type="Number" label="Page Size" default="10"/>
+            <property name="searchKey" type="String" label="Initial Search Key" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

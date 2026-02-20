@@ -1,0 +1,78 @@
+<template>
+    <lightning-card title="Accounts" icon-name="standard:account">
+        <div class="slds-p-horizontal_medium slds-p-vertical_small controls">
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-p-bottom_x-small">
+                    <lightning-input type="search"
+                                     label="Search by Name"
+                                     value={searchKey}
+                                     placeholder="Type name and click Search"
+                                     onchange={handleSearchChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12 slds-p-bottom_x-small">
+                    <lightning-combobox
+                        name="pageSize"
+                        label="Page Size"
+                        value={pageSize}
+                        options={pageSizeOptions}
+                        onchange={handlePageSizeChange}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_2-of-12 slds-p-bottom_x-small">
+                    <lightning-button
+                        label="Search"
+                        variant="brand"
+                        class="slds-m-top_medium"
+                        onclick={handleSearch}
+                        disabled={loading}>
+                    </lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-align_absolute-center slds-p-bottom_x-small">
+                    <lightning-button
+                        label={sortDirection === 'ASC' ? 'Sort: Name ASC' : 'Sort: Name DESC'}
+                        onclick={handleSortToggle}
+                        disabled={loading}>
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+
+        <template if:true={errorMessage}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_small">
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Error"></span>
+                    <h2>{errorMessage}</h2>
+                </div>
+            </div>
+        </template>
+
+        <div class="slds-p-horizontal_medium">
+            <lightning-datatable
+                key-field="Id"
+                data={rows}
+                columns={columns}
+                hide-checkbox-column
+                show-row-number-column
+                is-loading={loading}>
+            </lightning-datatable>
+        </div>
+
+        <template if:true={showEmpty}>
+            <div class="slds-p-around_medium slds-text-color_weak slds-text-align_center">No records found.</div>
+        </template>
+
+        <div class="slds-p-horizontal_medium slds-p-vertical_small footer">
+            <div class="slds-grid slds-grid_align-spread slds-align_absolute-center">
+                <div class="slds-col slds-p-right_small">
+                    <lightning-button label="Previous" onclick={handlePrev} disabled={isPrevDisabled}></lightning-button>
+                    <lightning-button class="slds-m-left_small" label="Next" onclick={handleNext} disabled={isNextDisabled}></lightning-button>
+                </div>
+                <div class="slds-col slds-text-body_small slds-text-color_weak">
+                    {pageInfo} • Total: {totalRecords}
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>
