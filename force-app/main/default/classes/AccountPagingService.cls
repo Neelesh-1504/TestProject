@@ -32,6 +32,14 @@ public with sharing class AccountPagingService {
         }
     }
 
+    /**
+     * Fetches paginated account records with optional search and sorting
+     * @param pageNumber 1-based page index
+     * @param pageSize Number of records per page
+     * @param searchKey Optional substring match on Name (case-insensitive)
+     * @param sortDirection 'ASC' or 'DESC' for Name
+     * @return AccountPage object containing records and pagination info
+     */
     @AuraEnabled(cacheable=true)
     public static AccountPage fetchAccounts(Integer pageNumber, Integer pageSize, String searchKey, String sortDirection) {
         // Return Early validation
