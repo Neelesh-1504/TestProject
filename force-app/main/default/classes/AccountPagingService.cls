@@ -10,11 +10,6 @@
  * - sortDirection: &#39;ASC&#39; or &#39;DESC&#39; for Name
  */
 public with sharing class AccountPagingService {
-    // Use enums over string constants
-    public enum SORT_DIRECTION {
-        ASC,
-        DESC
-    }
 
     public class AccountPage {
         @AuraEnabled public List<Account> records;
@@ -49,11 +44,9 @@ public with sharing class AccountPagingService {
         if (pageSize == null || pageSize <= 0) {
             pageSize = 10;
         }
-        SORT_DIRECTION sortDir;
-        try {
-            sortDir = (sortDirection == null) ? SORT_DIRECTION.ASC : SORT_DIRECTION.valueOf(sortDirection.toUpperCase());
-        } catch (Exception e) {
-            sortDir = SORT_DIRECTION.ASC;
+        String sortDir = 'ASC'; // default
+        if (sortDirection != null && sortDirection.toUpperCase() == 'DESC') {
+            sortDir = 'DESC';
         }
 
         Integer offsetVal = (pageNumber - 1) * pageSize;
