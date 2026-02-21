@@ -75,7 +75,7 @@ public with sharing class AccountPagingService {
 
         // Main query with selected fields and Owner relationship
         String baseSoql = 'SELECT Id, Name, Industry, Phone, Type, Owner.Name FROM Account ';
-        String orderLimit = ' ORDER BY Name ' + String.valueOf(sortDir) + ' LIMIT :pageSize OFFSET :offsetVal';
+        String orderLimit = ' ORDER BY Name ' + sortDir + ' LIMIT :pageSize OFFSET :offsetVal';
 
         List<Account> rows = new List<Account>();
         try {
