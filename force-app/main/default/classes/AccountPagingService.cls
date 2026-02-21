@@ -11,7 +11,10 @@
  */
 public with sharing class AccountPagingService {
     // Use enums over string constants
-    public enum SORT_DIRECTION { ASC, DESC }
+    public enum SORT_DIRECTION {
+        ASC,
+        DESC
+    }
 
     public class AccountPage {
         @AuraEnabled public List<Account> records;
